@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="pdfCanvas"></canvas>
+    <script>
+        var url = "YOUR_PDF_PATH_HERE";  // Replace with the path to the PDF
+
+        // Asynchronous download PDF
+        pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            renderPage(1);  // Render the first page
+        });
+
+        function renderPage(num) {
+            pdfDoc.getPage(num).then(function(page) {
+                var scale = 1.5;
+                var viewport = page.getViewport({ scale: scale });
+                var canvas = document.getElementById('pdfCanvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                });
+            });
+        }
+    </script>
+</body>
+</html>
