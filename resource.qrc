@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/images">
+    <file>resources/background-texttunes.png</file>
+  </qresource>
+</RCC>
